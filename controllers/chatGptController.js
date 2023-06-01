@@ -7,7 +7,7 @@ export const makeMessage = async (req, res) => {
       baseURL: 'https://api.openai.com/v1/chat/completions',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer sk-pLEJtwyQeOB1a2jMDT7fT3BIbkFJnaqEo3RLEOMR2YNiTXWE'
+        'Authorization': 'Bearer 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'
       }
     })
 
