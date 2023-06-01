@@ -7,35 +7,20 @@ export const makeMessage = async (req, res) => {
       baseURL: 'https://api.openai.com/v1/chat/completions',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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'
+        'Authorization': 'Bearer ' + global.env.CHAT_API_KEY
       }
     })
 
     let result = await axiosRequest.post('', {
-      model: 'gpt-3.5-turbo-0301',
+      model: 'gpt-3.5-turbo',
       messages: mlMessage,
       stream: true
     })
-
-    res.json({
-      success: true,
-      data: {
-        result,
-        msg: "Successfully sent."
-      }
-    })
-    console.log('---------------try start----------------')
     console.log(result)
-    console.log('---------------try end----------------')
+    res.status(200).json({ status: 'success', data: result.data });
+
   } catch (err) {
-    console.log('---------------catch start----------------')
     console.log(err)
-    console.log('---------------catch end----------------')
-    res.json({
-      success: false,
-      data: {
-        msg: err.message
-      }
-    });
+    res.status(500).send(err)
   }
 }
