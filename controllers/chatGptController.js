@@ -16,7 +16,6 @@ export const makeMessage = async (req, res) => {
       messages: mlMessage,
       stream: true
     })
-    console.log(result)
     res.status(200).json({ status: 'success', data: result.data });
 
   } catch (err) {
