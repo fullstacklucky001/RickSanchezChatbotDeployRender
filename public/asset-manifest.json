@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.27553ff7.css",
-    "main.js": "/static/js/main.7a57412f.js",
+    "main.js": "/static/js/main.04c62054.js",
     "static/media/bg_mobile.webp": "/static/media/bg_mobile.acd86ab4f24840daf7bd.webp",
     "static/media/Invaders.otf": "/static/media/Invaders.9e1cf8671fe05c3ec5ae.otf",
     "static/media/textbox.webp": "/static/media/textbox.4a737e10e14a61f32081.webp",
@@ -13,10 +13,10 @@
     "static/media/pause.webp": "/static/media/pause.ac5c3e47c87291f791db.webp",
     "index.html": "/index.html",
     "main.27553ff7.css.map": "/static/css/main.27553ff7.css.map",
-    "main.7a57412f.js.map": "/static/js/main.7a57412f.js.map"
+    "main.04c62054.js.map": "/static/js/main.04c62054.js.map"
   },
   "entrypoints": [
     "static/css/main.27553ff7.css",
-    "static/js/main.7a57412f.js"
+    "static/js/main.04c62054.js"
   ]
 }
