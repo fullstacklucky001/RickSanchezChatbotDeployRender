@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.3ea69d7a.css",
-    "main.js": "/static/js/main.a1c9d627.js",
+    "main.js": "/static/js/main.323f0f6a.js",
     "static/media/rick-icon.png": "/static/media/rick-icon.b17e5e8fde73f41ca610.png",
     "static/media/bg_mobile.webp": "/static/media/bg_mobile.acd86ab4f24840daf7bd.webp",
     "static/media/Invaders.otf": "/static/media/Invaders.9e1cf8671fe05c3ec5ae.otf",
@@ -14,10 +14,10 @@
     "static/media/pause.webp": "/static/media/pause.ac5c3e47c87291f791db.webp",
     "index.html": "/index.html",
     "main.3ea69d7a.css.map": "/static/css/main.3ea69d7a.css.map",
-    "main.a1c9d627.js.map": "/static/js/main.a1c9d627.js.map"
+    "main.323f0f6a.js.map": "/static/js/main.323f0f6a.js.map"
   },
   "entrypoints": [
     "static/css/main.3ea69d7a.css",
-    "static/js/main.a1c9d627.js"
+    "static/js/main.323f0f6a.js"
   ]
 }
