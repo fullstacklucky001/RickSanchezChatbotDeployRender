@@ -115,6 +115,38 @@ const insertRickMessage = async (req, res) => {
   }
 }
 
+const insertRickStaticMessage = async (req, res) => {
+  try {
+    let message = req.body.message
+    let rickMessage = {
+      'role': 'assistant',
+      'content': message
+    }
+
+    // create rick summarized message
+    let rickSummarizedMessage = {
+      'role': 'assistant',
+      'content': rickMessage
+    }
+
+    await MessageModel.create({
+      owner: 0,
+      message: rickMessage,
+      summarized_message: rickSummarizedMessage
+    })
+
+    let result = await MessageModel.find({}, { _id: 1, owner: 1, message: 1 }).sort({ _id: -1 }).limit(1)
+
+    if (result.length > 0)
+      res.status(200).json({ status: 'success', data: result[0] });
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).send(err)
+  }
+}
+
+
 const getMessages = async (req, res) => {
   try {
     let messages = await MessageModel.find({}, { owner: 1, message: 1 }).sort("_id")
@@ -232,5 +264,6 @@ module.exports = {
   deleteMessage,
   getPrompts,
   activePrompt,
-  updatePrompt
+  updatePrompt,
+  insertRickStaticMessage
 }

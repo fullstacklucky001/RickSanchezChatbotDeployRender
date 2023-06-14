@@ -18,7 +18,9 @@
     "express": "^4.17.1",
     "fakeyou.js": "^1.1.1",
     "mongoose": "^7.2.2",
-    "secure-env": "^1.2.0"
+    "node-cron": "^3.0.2",
+    "secure-env": "^1.2.0",
+    "socket.io": "^4.6.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
