@@ -6,7 +6,8 @@ const cronJob = (io) => {
         let result = await checkAlarm()
         // if (result.status) {
         io.emit('receive_message', result)
-
+        // task.stop()
+        // }
         if (!result.schedule.initState) {
             await ScheduleModel.findByIdAndUpdate({ _id: result.schedule._id }, { initState: true })
         }
@@ -17,6 +18,48 @@ const cronJob = (io) => {
 
     task.start()
 }
+
+
+// const cronJob = async (io) => {
+//     let scheduleData = await ScheduleModel.findOne({ active: true })
+//     let startAt_H = parseInt(scheduleData.startAt_H)
+//     let startAt_M = parseInt(scheduleData.startAt_M)
+//     console.log('0 ' + startAt_M + ' ' + startAt_H + ' * * *')
+
+//     //${startAt_M} ${startAt_H}
+//     const scheduleExpression = `0 ${startAt_M} ${startAt_H} * * *`
+//     var task = cron.schedule(scheduleExpression, () => {
+//         console.log(scheduleData)
+//         io.emit('receive_message', scheduleData)
+//         // task.stop()
+//     }, {
+//         scheduled: true,
+//     });
+//     task.start()
+// }
+
+
+// const cronJob = async (io) => {
+//     (async () => {
+//         let scheduleData = await ScheduleModel.findOne({ active: true });
+//         let startAt_H = scheduleData.startAt_H;
+//         let startAt_M = scheduleData.startAt_M;
+
+//         console.log('0 ' + startAt_M + ' ' + startAt_H + ' * * *');
+
+//         const scheduleExpression = `0 ${startAt_M} ${startAt_H} * * *`;
+
+//         var task = cron.schedule(scheduleExpression, () => {
+//             console.log(scheduleData);
+//             io.emit('receive_message', scheduleData);
+//             // task.stop()
+//         }, {
+//             scheduled: true,
+//         });
+//         task.start();
+//     })();
+// };
+
 
 const checkAlarm = async () => {
     let result = false

@@ -46,11 +46,6 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     console.log(`User connnected ${socket.id}`)
-    socket.emit('receive_message', {
-        message: 'welcome'
-    });
-    // let result = cronJob()
-    // console.log(result)
 })
 
 dbConnect();
