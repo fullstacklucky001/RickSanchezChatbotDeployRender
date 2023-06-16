@@ -36,7 +36,7 @@ const updateSchedule = async (req, res) => {
     let startAt_H = new Date(startAt).getHours()
     let startAt_M = new Date(startAt).getMinutes()
 
-    cronJob.cronJob(startAt_H, startAt_M);
+    cronJob.cronJob({ timing: { startH: startAt_H, startM: startAt_M } });
 
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No message with that ID')

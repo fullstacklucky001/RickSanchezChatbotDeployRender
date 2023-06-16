@@ -8,28 +8,51 @@ const server = http.createServer(app)
 
 // let { io } = require('../index.js')
 
-var task;
-const cronJob = (startAt_H, startAt_M) => {
-    let io = new Server(server, {
-        cors: {
-            origin: 'http://localhost:3000',
-            methods: ['GET', 'POST']
-        }
-    });
+let io;
+let task;
+const startAt_M = 1;
+const startAt_H = 1;
 
-    if (task) {
-        task.stop();
+
+const cronJob = (props) => {
+    // let io = new Server(server, {
+    //     cors: {
+    //         origin: 'http://localhost:3000',
+    //         methods: ['GET', 'POST']
+    //     }
+    // });
+
+    if (props?.io) {
+        io = props?.io;
     }
 
-    const scheduleExpression = `0 ${startAt_M} ${startAt_H} * * *`
+    const timing = props?.timing;
+
+    console.log("io", io);
+    console.log('timing', timing)
+
+    let scheduleExpression = `0 ${startAt_M} ${startAt_H} * * *`
+
+    if (timing) {
+        if (task) {
+            const startM = timing.startM;
+            const startH = timing.startH;
+
+            scheduleExpression = `0 ${startM} ${startH} * * *`;
+            task.stop();
+        }
+    }
+
+    console.log('scheduleExpression', scheduleExpression)
+
     task = cron.schedule(scheduleExpression, () => {
         // io.on('connect')
 
-        io.on('connection', (socket) => {
-            console.log(`User connnected ${socket.id}`)
-            io.emit('receive_message', `sdssssssssssss  ${new Date()}`)
-        })
-        // io.emit('receive_message', 'event start')
+        // io.on('connection', (socket) => {
+        //     console.log(`User connnected ${socket.id}`)
+        //     io.emit('receive_message', `sdssssssssssss  ${new Date()}`)
+        // })
+        io.emit('receive_message', 'event start')
         console.log('ok')
         // task.stop()
     }, {
