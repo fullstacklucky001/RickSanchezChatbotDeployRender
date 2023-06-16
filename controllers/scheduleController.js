@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const ScheduleModel = require("../models/ScheduleModel")
+const cronJob = require("../controllers/cronJobController");
 
 const getSchedules = async (req, res) => {
     try {
@@ -32,9 +33,10 @@ const updateSchedule = async (req, res) => {
     let message = req.body.message
     let startAt = req.body.startAt
     let duration = req.body.duration
-
     let startAt_H = new Date(startAt).getHours()
     let startAt_M = new Date(startAt).getMinutes()
+
+    cronJob.cronJob(startAt_H, startAt_M);
 
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No message with that ID')

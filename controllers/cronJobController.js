@@ -1,21 +1,40 @@
 const ScheduleModel = require("../models/ScheduleModel")
+const { Server } = require('socket.io')
 const cron = require('node-cron');
+const express = require('express')
+const app = express()
+const http = require('http')
+const server = http.createServer(app)
 
-const cronJob = (io) => {
-    var task = cron.schedule('*/10 * * * * *', async () => {
-        let result = await checkAlarm()
-        // if (result.status) {
-        io.emit('receive_message', result)
-        // task.stop()
-        // }
-        if (!result.schedule.initState) {
-            await ScheduleModel.findByIdAndUpdate({ _id: result.schedule._id }, { initState: true })
+// let { io } = require('../index.js')
+
+var task;
+const cronJob = (startAt_H, startAt_M) => {
+    let io = new Server(server, {
+        cors: {
+            origin: 'http://localhost:3000',
+            methods: ['GET', 'POST']
         }
-    }, {
-        scheduled: true,
-        timezone: "America/Denver"
     });
 
+    if (task) {
+        task.stop();
+    }
+
+    const scheduleExpression = `0 ${startAt_M} ${startAt_H} * * *`
+    task = cron.schedule(scheduleExpression, () => {
+        // io.on('connect')
+
+        io.on('connection', (socket) => {
+            console.log(`User connnected ${socket.id}`)
+            io.emit('receive_message', `sdssssssssssss  ${new Date()}`)
+        })
+        // io.emit('receive_message', 'event start')
+        console.log('ok')
+        // task.stop()
+    }, {
+        scheduled: true,
+    });
     task.start()
 }
 
