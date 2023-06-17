@@ -46,7 +46,6 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     console.log(`User connnected ${socket.id}`)
-    io.emit('receive_message', 'sdssssssssssss')
 })
 
 dbConnect();
@@ -61,7 +60,6 @@ app.get('*', function (req, res) {
 
 const PORT = global.env.PORT
 console.log("SERVER PORT : " + PORT);
-
 
 server.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)

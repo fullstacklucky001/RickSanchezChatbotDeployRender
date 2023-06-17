@@ -22,10 +22,6 @@ const ScheduleSchema = mongoose.Schema({
     active: {
         type: Boolean // false: inactive, true: active
     },
-    initState: {
-        type: Boolean, // default: false , false: not inited , true: inited
-        default: false
-    }
 }, {
     timestamps: true
 });

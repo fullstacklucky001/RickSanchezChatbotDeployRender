@@ -12,7 +12,7 @@ const {
     updatePrompt,
 } = require("../controllers/chatGptController.js")
 
-const { updateSchedule, getSchedules, activeSchedule } = require("../controllers/scheduleController.js")
+const { checkSchedule, updateSchedule, getSchedules, activeSchedule } = require("../controllers/scheduleController.js")
 
 
 const router = express.Router();
@@ -35,5 +35,6 @@ router.post("/update_prompt", updatePrompt);
 router.get("/get_schedules", getSchedules);
 router.post("/active_schedule", activeSchedule);
 router.post("/update_schedule", updateSchedule);
+router.post("/check_schedule", checkSchedule);
 
 module.exports = router;

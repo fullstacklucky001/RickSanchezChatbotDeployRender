@@ -27,6 +27,27 @@ const activeSchedule = async (req, res) => {
     }
 }
 
+const checkSchedule = async (req, res) => {
+    let result = false
+    let scheduleData = await ScheduleModel.find({ active: true })
+    let currentTime = new Date()
+    let currentSeconds = currentTime.getHours() * 3600 + currentTime.getMinutes() * 60
+    if (scheduleData.length > 0) {
+        scheduleData.forEach(element => {
+            let startSeconds = Number(element.startAt_H) * 3600 + Number(element.startAt_M) * 60
+            let endSeconds = startSeconds + 60 * (element.duration - 1)
+            if (startSeconds <= currentSeconds && currentSeconds <= endSeconds) {
+                result = true
+            } else {
+                result = false
+            }
+        });
+    } else {
+        result = false
+    }
+    res.status(200).json({ status: result })
+}
+
 const updateSchedule = async (req, res) => {
     const id = req.body.scheduleId
     let title = req.body.title
@@ -36,12 +57,15 @@ const updateSchedule = async (req, res) => {
     let startAt_H = new Date(startAt).getHours()
     let startAt_M = new Date(startAt).getMinutes()
 
-    cronJob.cronJob({ timing: { startH: startAt_H, startM: startAt_M } });
+    let endAt = new Date(new Date(startAt).getTime() + duration * 60 * 1000)
+    let endAt_H = endAt.getHours()
+    let endAt_M = endAt.getMinutes()
 
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No message with that ID')
-        await ScheduleModel.findByIdAndUpdate({ _id: id }, { title: title, message: message, duration: duration, startAt: startAt, startAt_H: startAt_H, startAt_M: startAt_M, initState: false })
+        await ScheduleModel.findByIdAndUpdate({ _id: id }, { title: title, message: message, duration: duration, startAt: startAt, startAt_H: startAt_H, startAt_M: startAt_M })
         let result = await ScheduleModel.findById({ _id: id })
+        cronJob.cronJob({ timing: { startH: startAt_H, startM: startAt_M, endH: endAt_H, endM: endAt_M }, alarm: result });
         res.status(200).json({ msg: 'success', data: result })
 
     } catch (error) {
@@ -52,5 +76,6 @@ const updateSchedule = async (req, res) => {
 module.exports = {
     getSchedules,
     updateSchedule,
-    activeSchedule
+    activeSchedule,
+    checkSchedule
 }
